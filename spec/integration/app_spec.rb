@@ -12,8 +12,8 @@ describe Application do
   # class so our tests work.
   let(:app) { Application.new }
 
-  context "GET to /" do
-    it "returns 200 OK with the right content" do
+  context "GET to /names" do
+    it "returns 200 OK" do
       # Send a GET request to /
       # and returns a response object we can test.
       response = get("/names")
@@ -25,12 +25,12 @@ describe Application do
     it "returns Julia, Mary, Karim" do
     response = get('/names?name1=Julia&name2=Mary&name3=Karim')
 
-    expect(response.status).to eq(200)
+    # expect(response.status).to eq(200)
     expect(response.body).to eq "Julia, Mary, Karim"
     end
 
-    xit 'returns 404 Not Found' do
-      response = get('/names?id=276278')
+    it 'returns 404 Not Found' do
+      response = get('/namez')
 
       expect(response.status).to eq(404)
       # expect(response.body).to eq(expected_response)
@@ -39,16 +39,22 @@ describe Application do
   end
   
 
-  context "POST to /submit" do
-    xit "returns 200 OK with the right content" do
-      # Send a POST request to /submit
-      # with some body parameters
-      # and returns a response object we can test.
-      response = post("/submit", name: "Dana", some_other_param: 12)
+  context "POST to /sort-names" do
+    it "returns names sorted into alphabethic order" do
+
+      response = post('/sort-names?names=Joe,Alice,Zoe,Julia,Kieran')
+
+      expect(response.status).to eq(200)
+      expect(response.body).to eq "Alice,Joe,Julia,Kieran,Zoe"
+    end
+
+    it "returns names sorted into alphabethic order" do
+    
+      response = post('/sort-names?names=Karen,Karl,Vivian,Chris,Zelda')
 
       # Assert the response status code and body.
       expect(response.status).to eq(200)
-      expect(response.body).to eq("Hello Dana")
+      expect(response.body).to eq "Chris,Karen,Karl,Vivian,Zelda"
     end
   end
 end

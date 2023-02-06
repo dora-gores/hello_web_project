@@ -15,9 +15,10 @@ class Application < Sinatra::Base
     return "#{name1}, #{name2}, #{name3}"
   end
 
-  # post '/submit' do
-  #   name = params[:name]
-  #   message = params[:message]
-  #   return "Thanks #{name}, you sent this message: #{message}"
-  # end
+  post '/sort-names' do
+    names = params[:names]
+    split_names = names.split(',')
+    sorted_names = split_names.sort.join(',')
+    return sorted_names
+  end
 end
