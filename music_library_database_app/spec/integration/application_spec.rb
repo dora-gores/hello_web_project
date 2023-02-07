@@ -35,4 +35,31 @@ describe Application do
       expect(response.body).to include('OK Computer')
     end
   end
+
+  context "POST /artists" do
+    it 'creates a new artist' do
+      response = post(
+        '/artists', 
+        name: 'Billie Eilish', 
+        genre: 'Pop', 
+      )
+
+      expect(response.status).to eq(200)
+      expect(response.body).to eq('')
+
+      response = get('/artists')
+
+      expect(response.body).to include('Billie Eilish')
+    end
+  end
+
+  context "GET /artists" do
+    it 'returns a list of artists' do
+      response = get('/artists')
+      expected_response = 'Pixies, ABBA, Taylor Swift, Nina Simone, Kiasmos, Billie Eilish'
+
+      expect(response.status).to eq(200)
+      expect(response.body).to eq(expected_response)
+    end
+  end
 end
