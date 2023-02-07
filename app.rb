@@ -8,6 +8,12 @@ class Application < Sinatra::Base
   #   register Sinatra::Reloader
   # end
 
+  get '/hello' do
+    @name = params[:name]
+    return erb(:index)
+  end
+
+
   get '/names' do
     name1 = params[:name1]
     name2 = params[:name2]

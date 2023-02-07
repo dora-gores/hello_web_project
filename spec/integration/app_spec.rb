@@ -12,6 +12,18 @@ describe Application do
   # class so our tests work.
   let(:app) { Application.new }
 
+
+  context 'GET /hello' do
+    it 'returns an html hello message with a given name' do
+      response = get('/hello', name: 'Dora')
+      expect(response.body).to include('<h1>Hello Dora!</h1>')
+      # expect(response.body).to include('<p>Anna</p>')
+      # expect(response.body).to include('<p>Kim</p>')
+      # expect(response.body).to include('<p>Josh</p>')
+      # expect(response.body).to include('<p>David</p>')
+    end
+  end
+
   context "GET to /names" do
     it "returns 200 OK" do
       # Send a GET request to /
