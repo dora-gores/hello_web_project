@@ -4,15 +4,23 @@ require_relative '../../app'
 
 
 def reset_artists_table
-  seed_sql = File.read('spec/seeds/artists_seeds.sql')
+  artists_seed_sql = File.read('spec/seeds/artists_seeds.sql')
   connection = PG.connect({ host: '127.0.0.1', dbname: 'music_library_test' })
-  connection.exec(seed_sql)
+  connection.exec(artists_seed_sql)
+end
+
+def reset_albums_table
+  albums_seed_sql = File.read('spec/seeds/albums_seeds.sql')
+  connection = PG.connect({ host: '127.0.0.1', dbname: 'music_library_test' })
+  connection.exec(albums_seed_sql)
+
 end
 
 describe Application do
 
   before(:each) do
     reset_artists_table
+    reset_albums_table
   end
 
   include Rack::Test::Methods
@@ -20,15 +28,18 @@ describe Application do
   let(:app) { Application.new }
 
 
-  # context 'GET /albums' do
-  #   it 'returns the list of albums with html' do
-  #     response = get('/albums')
+  context 'GET /albums' do
+    it 'returns the list of albums with html' do
+      response = get('/albums')
       
-  #     expect(response.status).to eq(200)
-  #     expect(response.body).to include('Title: Surfer Rosa')
-  #     expect(response.body).to include('Released: 1988')
-  #   end
-  # end
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<h1>Albums</h1>')
+      expect(response.body).to include('<a href ="/albums/2">Surfer Rosa</a>')
+      expect(response.body).to include('<a href ="/albums/3">Waterloo</a>')
+      expect(response.body).to include('<a href ="/albums/4">Super Trouper</a>')
+      expect(response.body).to include('<a href ="/albums/5">Bossanova</a>')
+    end
+  end
 
   context 'GET /albums/:id' do
     it 'returns info about album 2' do
