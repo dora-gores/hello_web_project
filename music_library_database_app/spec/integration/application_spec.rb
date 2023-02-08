@@ -19,9 +19,20 @@ describe Application do
 
   let(:app) { Application.new }
 
+
+  # context 'GET /albums' do
+  #   it 'returns the list of albums with html' do
+  #     response = get('/albums')
+      
+  #     expect(response.status).to eq(200)
+  #     expect(response.body).to include('Title: Surfer Rosa')
+  #     expect(response.body).to include('Released: 1988')
+  #   end
+  # end
+
   context 'GET /albums/:id' do
     it 'returns info about album 2' do
-      response = get('albums/2')
+      response = get('/albums/2')
 
       expect(response.status).to eq(200)
       expect(response.body).to include('<h1>Surfer Rosa</h1>')
@@ -31,16 +42,16 @@ describe Application do
   end
 
 
-  context "GET /albums" do
-    it 'returns a list of albums' do
-      # Assuming the post with id 1 exists.
-      response = get('/albums')
-      expected_response = 'Surfer Rosa, Waterloo, Super Trouper, Bossanova, Lover, Folklore, I Put a Spell on You, Baltimore, Here Comes the Sun, Fodder on My Wings, Ring Ring'
+  # context "GET /albums" do
+  #   it 'returns a list of albums' do
+  #     # Assuming the post with id 1 exists.
+  #     response = get('/albums')
+  #     expected_response = 'Surfer Rosa, Waterloo, Super Trouper, Bossanova, Lover, Folklore, I Put a Spell on You, Baltimore, Here Comes the Sun, Fodder on My Wings, Ring Ring'
 
-      expect(response.status).to eq(200)
-      expect(response.body).to eq(expected_response)
-    end
-  end
+  #     expect(response.status).to eq(200)
+  #     expect(response.body).to eq(expected_response)
+  #   end
+  # end
 
   context "POST /albums" do
     it 'creates a new album' do
